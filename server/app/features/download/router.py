@@ -9,6 +9,13 @@ router = APIRouter(tags=["download"], prefix="/download")
 def download_pdf():
     return "/download/link/pdf"
 
+@router.get("/direct-pdf")
+def download_direct_pdf():
+    return FileResponse(
+        "samples/bitcoin.pdf",
+        filename="bitcoin.pdf",
+        media_type="application/octet-stream",
+    )
 
 @router.get("/link/pdf", response_class=FileResponse)
 def pdf_download_link():

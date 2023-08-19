@@ -50,7 +50,7 @@ class DownloadClient extends ServerSubClient {
   }
 
   async pdf() {
-    return this.requestBlob({ path: 'pdf' });
+    return this.requestBlob({ path: 'direct-pdf' });
   }
 }
 
