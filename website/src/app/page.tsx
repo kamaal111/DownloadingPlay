@@ -9,15 +9,38 @@ import styles from './page.module.css';
 const server = new ServerClient();
 
 export default function Home() {
-  React.useEffect(() => {
-    server.health.ping().then((value) => {
-      console.log('value.message', value.message);
+  const [downloading, setDownloading] = React.useState(false);
+
+  async function withDownloading(action: () => Promise<unknown>) {
+    setDownloading(true);
+    await action();
+    setDownloading(false);
+  }
+
+  async function downloadPDF() {
+    await withDownloading(async () => {
+      let response: Awaited<ReturnType<typeof server.download.pdf>>;
+      try {
+        response = await server.download.pdf();
+      } catch (error) {
+        console.error('error', error);
+        return;
+      }
+      console.log('response', response);
     });
-  }, []);
+  }
 
   return (
     <main className={styles.main}>
-      <h1>Hello World!</h1>
+      <h1>Downloading stuff</h1>
+      {downloading ? <p>Loading....</p> : null}
+      <button
+        type="button"
+        onClick={(_event) => downloadPDF()}
+        disabled={downloading}
+      >
+        Download PDF
+      </button>
     </main>
   );
 }
