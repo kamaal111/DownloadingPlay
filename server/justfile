@@ -15,7 +15,7 @@ run-dev:
     fi
 
     . $DEVCONTAINER_VIRTUAL_ENVIRONMENT/bin/activate
-    uvicorn main:app --reload
+    uvicorn app.main:app --reload
 
 init-venv name:
     #!/bin/zsh
