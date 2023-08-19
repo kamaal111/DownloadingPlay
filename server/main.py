@@ -25,7 +25,11 @@ def download_pdf():
 
 @app.get("/download-link/pdf", response_class=FileResponse)
 def pdf_download_link():
-    return FileResponse("samples/bitcoin.pdf")
+    return FileResponse(
+        "samples/bitcoin.pdf",
+        filename="bitcoin.pdf",
+        media_type="application/pdf",
+    )
 
 
 @app.get("/health/ping")

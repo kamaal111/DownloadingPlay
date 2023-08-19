@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import FileSaver from 'file-saver';
 
 import ServerClient from '@/clients/server';
 
@@ -26,7 +27,8 @@ export default function Home() {
         console.error('error', error);
         return;
       }
-      console.log('response', response);
+
+      FileSaver.saveAs(response, 'bitcoin.pdf');
     });
   }
 
