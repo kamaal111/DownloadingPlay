@@ -1,0 +1,8 @@
+set export
+
+default:
+  just --list
+
+run-dev:
+    npm i
+    npm run dev

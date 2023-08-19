@@ -1,0 +1,29 @@
+set export
+
+DEVCONTAINER := "../.devcontainer"
+DEVCONTAINER_VIRTUAL_ENVIRONMENT :=  DEVCONTAINER / ".venv"
+
+default:
+  just --list
+
+run-dev:
+    #!/bin/zsh
+
+    if [ ! -d $DEVCONTAINER_VIRTUAL_ENVIRONMENT ]
+    then
+        just init-venv $DEVCONTAINER_VIRTUAL_ENVIRONMENT
+    fi
+
+    . $DEVCONTAINER_VIRTUAL_ENVIRONMENT/bin/activate
+    uvicorn main:app --reload
+
+init-venv name:
+    #!/bin/zsh
+
+    VENV_NAME="{{ name }}"
+
+    python3 -m venv $VENV_NAME
+    . $VENV_NAME/bin/activate
+    pip install poetry
+    cd server
+    poetry install
